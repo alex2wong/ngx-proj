@@ -1,0 +1,20 @@
+li{
+    text-decoration: none;
+    line-height: 1.5em;
+    list-style: none;
+    display: block;
+    padding: 4px;
+}
+
+a {
+    display: block;
+    max-width: 140px;
+    padding: 6px;
+    color: #333;
+    text-decoration: none;
+    /*border: 1px solid #333;*/
+    border-radius: 4px;
+}
+a:hover {
+    background: #ddd;
+}

@@ -1,0 +1,14 @@
+<div>
+    <input [(ngModel)]="filterStr">
+    <div class="dropdown-container">
+        <!--click dropdown to toggle the dropdown-menu display-->
+        <a href="#" data-toggle="dropdown" (click)="toggleDropdown($event)"> select addrobj 
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu">
+        <li *ngFor="let item of addrObjArray">
+                <span>{{item.name}}</span>
+            </li> 
+        </ul>
+    <div>
+</div>
