@@ -5,16 +5,18 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { LargeListComponent } from './largeList/largeList.component';
+import { MapGLComponent } from './map-gl/map-gl.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LargeListComponent
+    LargeListComponent,
+    MapGLComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

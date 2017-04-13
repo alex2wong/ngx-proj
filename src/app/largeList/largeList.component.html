@@ -5,8 +5,8 @@
         <a href="#" data-toggle="dropdown" (click)="toggleDropdown($event)"> select addrobj 
             <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu">
-        <li *ngFor="let item of addrObjArray">
+        <ul class="dropdown-menu" (wheel)="loadMoreAO($event)">
+        <li *ngFor="let item of filteredAddrObjs">
                 <span>{{item.name}}</span>
             </li> 
         </ul>
