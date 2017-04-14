@@ -1,12 +1,13 @@
 <div>
-    <input [(ngModel)]="filterStr">
+    <input [(ngModel)]="filterStr" (blur)="searchAO($event)" (keyup.enter)="searchAO($event)"> <span>{{selected.name}}</span>
     <div class="dropdown-container">
         <!--click dropdown to toggle the dropdown-menu display-->
         <a href="#" data-toggle="dropdown" (click)="toggleDropdown($event)"> select addrobj 
             <span class="caret"></span>
         </a>
-        <ul class="dropdown-menu" (wheel)="loadMoreAO($event)">
-        <li *ngFor="let item of filteredAddrObjs">
+        <ul class="dropdown-menu" (wheel)="scrollListener($event)">
+        <li *ngIf="filteredAddrObjs.length==0">No addrobj</li>
+        <li *ngFor="let item of filteredAddrObjs" (click)="selectAO($event, item)">
                 <span>{{item.name}}</span>
             </li> 
         </ul>

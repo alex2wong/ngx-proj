@@ -11,7 +11,7 @@ export class AppComponent {
   aoIndex = 0;
   constructor(){
     // random many addrObj
-    for(let i=0;i<10000;i++) {
+    for(let i=0;i<30000;i++) {
       this.addrObjs.push({
         name: this.aoIndex++ + " addrObj",
       })

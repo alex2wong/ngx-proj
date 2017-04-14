@@ -18,7 +18,7 @@ export class LargeListComponent implements OnInit {
   filteredAddrObjs: Array<Object>;
   cursor = 0;
   dropMenu: Element = null;
-  selected: Object = null;
+  selected: Object = {"name": "to be selected."};
   options: Array<Object> = this.addrObjArray;
 
   constructor() {
@@ -37,15 +37,49 @@ export class LargeListComponent implements OnInit {
     // fill dropMenu depend on the index range..
     filterAO() {
         try {
-            if (this.cursor < 0) return;
+            if (this.cursor < 0 || this.cursor > this.addrObjArray.length -1001) return;
             this.filteredAddrObjs = this.addrObjArray.slice(this.cursor, this.cursor+CURSOR_RANGE);
             console.log("filtering addrobjs to promote performance..");
         } catch (error) {
             console.error(error);
-        }        
+        }
+    }
+    
+    // keyUp listener.
+    searchAO(evt: KeyboardEvent) {
+        if (this.filterStr.length === 0) {
+            this.cursor = 0;
+            this.filterAO();
+            return;
+        }
+        try {
+            let tempAOs = [];
+            for(let j = 0; j < this.addrObjArray.length; j ++) {
+                let curAO: AddrObj = <AddrObj>this.addrObjArray[j];
+                if (curAO.name.indexOf(this.filterStr) > -1) {
+                    tempAOs.push(curAO);
+                }
+            }
+            this.filteredAddrObjs = tempAOs;
+            this.openDropdown();
+            console.warn("search keyword is: " + this.filterStr, " search res num: " + tempAOs.length);
+        } catch (error) {
+            console.error("something happen when search AO");
+        }
     }
 
-    throttle(func:Function, interv: number) {
+    // selectAO by click AO list-item.
+    selectAO(evt: Event, ao: AddrObj) {
+        if (ao) {
+            this.selected = ao;
+            console.warn("selected AO: " + ao.name);
+            return;
+        } else {
+            console.warn("NOT selected AO.........");
+        }
+    }
+
+    throttle(func: Function, interv: number) {
         setTimeout(function(){
             let executing = true;
             let func2call = func;
@@ -63,17 +97,14 @@ export class LargeListComponent implements OnInit {
     scrollListener(evt: MouseWheelEvent) {
         if (1) {
             // cooling time 300ms for scrollListener.
-            console.warn("handling wheel event on dropMenu..");
-            // this.loadMoreAO();
-            // this.throttle(this.loadMoreAO, 300);
+            this.throttle(this.loadMoreAO, 300);
         } else {
             console.error("can not find dropMenu !!");
         }
     }
 
     // if function called as eventListener !! `this` means the Element which trigger evt ??
-    loadMoreAO(evt: MouseWheelEvent) {
-        let target = <HTMLUListElement>evt.target||evt.srcElement;
+    loadMoreAO() {
         console.warn("when handling wheel evt, `this` means " + this);
         if ((this.dropMenu.scrollHeight - this.dropMenu.scrollTop) < 211 && this.cursor < (this.addrObjArray.length - 1001)) {
             // scroll to next page.
@@ -111,6 +142,14 @@ export class LargeListComponent implements OnInit {
             // this is special, in listener(evt: event) `this` indicate what??
         } else {
             // hack
+        }
+    }
+
+    openDropdown() {
+        if (this.dropMenu && this.dropMenu.parentElement) {
+            let dropContainer = this.dropMenu.parentElement;
+            dropContainer.className += " open";
+            this.dropOpen = true;
         }
     }
 
