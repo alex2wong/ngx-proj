@@ -1,8 +1,8 @@
 <div (click)="hideDropdown($event)">
-    <input [(ngModel)]="filterStr" placeholder="keyword to search" (keyup.enter)="searchAO($event)">
+    <input [(ngModel)]="filterStr" placeholder="keyword to search" (blur)="searchAO($event)" (keyup.enter)="searchAO($event)">
     <div class="dropdown-container">
         <!--click dropdown to toggle the dropdown-menu display-->
-        <a href="#" class="lg-select" data-toggle="dropdown" (click)="toggleDropdown($event)">{{selected.name}}
+        <a href="javascript:void(0)" class="lg-select" data-toggle="dropdown" (click)="toggleDropdown($event)">{{selected.name}}
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" (wheel)="scrollListener($event)">

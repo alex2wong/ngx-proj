@@ -60,7 +60,7 @@ export class LargeListComponent implements OnInit {
     }
     
     // keyUp listener.
-    searchAO(evt: KeyboardEvent) {
+    searchAO(evt: Event) {
         if (this.filterStr.length === 0) {
             this.cursor = 0;
             this.filterAO();
@@ -75,7 +75,9 @@ export class LargeListComponent implements OnInit {
                 }
             }
             this.filteredAddrObjs = tempAOs;
-            this.openDropdown();
+            setTimeout(()=>{
+                this.openDropdown();
+            }, 200);
             console.warn("search keyword is: " + this.filterStr, " search res num: " + tempAOs.length);
         } catch (error) {
             console.error("something happen when search AO");
@@ -139,7 +141,7 @@ export class LargeListComponent implements OnInit {
             console.log("menu hidden...`this` indicate: " + this);
         }
     }
-
+    
     openDropdown() {
         if (this.dropMenu && this.dropMenu.parentElement) {
             let dropContainer = this.dropMenu.parentElement;
