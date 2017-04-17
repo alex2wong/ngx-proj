@@ -1,7 +1,13 @@
-<h1>
-  {{title}}
-</h1>
-<large-list [addrObjArray]="addrObjs"></large-list>
+<h3>
+  Large List (select) DEMO
+</h3>
+<large-list [options]="addrObjs" [title]="title"></large-list>
 <hr>
 <h3> Second Part </h3>
+There are over 20000 options in the large list, <br>
+which apply pagenation to promote performance. <br><br>
+Actually, chrome render select options before we select, <br>
+but firefox render the select after we click select. <br>
+This larget list component is meant to pollyfill the diff.
+
 <app-map-gl></app-map-gl>

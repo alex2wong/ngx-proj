@@ -6,44 +6,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = '';
+  title = 'select AddrObj';
   addrObjs = [];
-  aoIndex = 0;
   constructor(){
     // random many addrObj
-    for(let i=0;i<30000;i++) {
-      this.addrObjs.push({
-        name: this.aoIndex++ + " addrObj",
-      })
+    for(let i=0;i<25600;i++) {
+      let addrObj = <AddrObj>{};
+      addrObj.name = i + " addrObj",
+      this.addrObjs.push(addrObj);
     }
   }
-  // addrObjs = [
-  //   {
-  //     name:"x1 addrObj",
-  //   },
-  //   {
-  //     name:"x2 addrObj",
-  //   },
-  //   {
-  //     name:"x3 addrObj",
-  //   },
-  //   {
-  //     name:"x4 addrObj",
-  //   },
-  //   {
-  //     name:"x5 addrObj",
-  //   },
-  //   {
-  //     name:"x6 addrObj",
-  //   },
-  //   {
-  //     name:"x7 addrObj",
-  //   },
-  //   {
-  //     name:"x8 addrObj",
-  //   },
-  //   {
-  //     name:"x9 addrObj",
-  //   },
-  // ];
+}
+
+
+interface AddrObj {
+    name: string;
+    ipv4: string;
+    type: string;
 }

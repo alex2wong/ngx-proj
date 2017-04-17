@@ -1,4 +1,4 @@
-import { Component,OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 // import { } from 
 
 const CURSOR_RANGE = 1000;
@@ -10,16 +10,19 @@ const CURSOR_RANGE = 1000;
   providers: [Input]
 })
 export class LargeListComponent implements OnInit { 
-  title = 'large list!';
+  @Input()
+  title: string;
+  @Input()
+  options: Array<AddrObj>;
+
   filterStr = "";
   dropOpen = false;
-  @Input()
-  addrObjArray: Array<Object>;
+  addrObjArray: Array<AddrObj>;
   filteredAddrObjs: Array<Object>;
   cursor = 0;
   dropMenu: Element = null;
-  selected: Object = {"name": "to be selected."};
-  options: Array<Object> = this.addrObjArray;
+  selected = <AddrObj>{};
+
 
   constructor() {
       // this.addrObjArray = addrObjs;
@@ -28,16 +31,27 @@ export class LargeListComponent implements OnInit {
   // bind with ul-li, and search-subcomponent
     ngOnInit() {
         console.log("ngInit...");
+        this.addrObjArray = this.options;
+        this.selected.name = this.title;
         this.dropMenu = document.querySelector(".dropdown-menu");
-        this.registerClick();
         // filter 1000 elements to fill in dropMenu.
         this.filterAO();
+    }
+
+    getSelected() {
+        return this.selected;
+    }
+
+    setOptions(options: Array<AddrObj>) {
+        this.options = options; 
+        return this;
     }
 
     // fill dropMenu depend on the index range..
     filterAO() {
         try {
-            if (this.cursor < 0 || this.cursor > this.addrObjArray.length -1001) return;
+            if (this.cursor < 0 || this.cursor > this.addrObjArray.length) return;
+            // #issue to address: slice safe
             this.filteredAddrObjs = this.addrObjArray.slice(this.cursor, this.cursor+CURSOR_RANGE);
             console.log("filtering addrobjs to promote performance..");
         } catch (error) {
@@ -79,69 +93,50 @@ export class LargeListComponent implements OnInit {
         }
     }
 
-    throttle(func: Function, interv: number) {
-        setTimeout(function(){
-            let executing = true;
-            let func2call = func;
-            // if cooled down.. execute.
-            if (!executing) {
-                setTimeout(function(){
-                    func2call();
-                    executing = false;         
-                }, interv)
-            }        
-        }, interv)
-    }
-
     // to listen scroll on dropMenu, in order to filter new AO... throttle must be applied to this..
     scrollListener(evt: MouseWheelEvent) {
-        if (1) {
+        if (this.filterStr.length == 0) {
             // cooling time 300ms for scrollListener.
-            this.throttle(this.loadMoreAO, 300);
-        } else {
-            console.error("can not find dropMenu !!");
+            // this.throttle(this.loadMoreAO, 300);
+            setTimeout(()=>{
+                this.loadMoreAO();
+            }, 300); 
         }
     }
 
     // if function called as eventListener !! `this` means the Element which trigger evt ??
     loadMoreAO() {
-        console.warn("when handling wheel evt, `this` means " + this);
-        if ((this.dropMenu.scrollHeight - this.dropMenu.scrollTop) < 211 && this.cursor < (this.addrObjArray.length - 1001)) {
+        // console.warn("when handling wheel evt, `this` means " + this);
+        if ((this.dropMenu.scrollHeight - this.dropMenu.scrollTop) < 211 && this.cursor < (this.addrObjArray.length - CURSOR_RANGE)) {
             // scroll to next page.
             this.cursor += CURSOR_RANGE;
             this.filterAO();
-        } else if (this.dropMenu.scrollTop < 1 && this.cursor > CURSOR_RANGE) {
+            this.dropMenu.scrollTop = 1;
+        } else if (this.dropMenu.scrollTop < 1 && this.cursor > (CURSOR_RANGE -1)) {
             this.cursor -= CURSOR_RANGE;
             this.filterAO();
+            this.dropMenu.scrollTop = this.dropMenu.scrollHeight * 0.95;
         } else {
-            console.warn("Nothing happened when check scrollTop: " + this.dropMenu.scrollTop);
+            return;
         }
     }
 
     // all variable need stric type.
     toggleDropdown(evt:MouseEvent) {
         let dropBtn = <HTMLAnchorElement>(evt.target||evt.srcElement);
+        evt.stopPropagation();
         if (!this.dropOpen && dropBtn.parentElement) {
             // parent.. add Class .open
+            this.dropOpen = true;
             setTimeout(function(){
                 dropBtn.parentElement.className += " open";
                 console.log("menu open...");
-                this.dropOpen = true;
             }, 50);
         } else if (this.dropOpen) {
             // hide the dropMenu
             dropBtn.parentElement.className = "dropdown-container";
             this.dropOpen = false;
-            console.log("menu hidden...");
-        }
-    }
-
-    registerClick() {
-        if (window.addEventListener) {
-            document.body.addEventListener("click", this.hideDropdown);
-            // this is special, in listener(evt: event) `this` indicate what??
-        } else {
-            // hack
+            console.log("menu hidden...`this` indicate: " + this);
         }
     }
 
@@ -153,7 +148,7 @@ export class LargeListComponent implements OnInit {
         }
     }
 
-    hideDropdown(){
+    hideDropdown(evt: Event) {
         // hide the dropMenu
         let dropdownContainer = document.querySelector(".dropdown-container");
         dropdownContainer.className = "dropdown-container";

@@ -1,8 +1,8 @@
-<div>
-    <input [(ngModel)]="filterStr" (blur)="searchAO($event)" (keyup.enter)="searchAO($event)"> <span>{{selected.name}}</span>
+<div (click)="hideDropdown($event)">
+    <input [(ngModel)]="filterStr" placeholder="keyword to search" (keyup.enter)="searchAO($event)">
     <div class="dropdown-container">
         <!--click dropdown to toggle the dropdown-menu display-->
-        <a href="#" data-toggle="dropdown" (click)="toggleDropdown($event)"> select addrobj 
+        <a href="#" class="lg-select" data-toggle="dropdown" (click)="toggleDropdown($event)">{{selected.name}}
             <span class="caret"></span>
         </a>
         <ul class="dropdown-menu" (wheel)="scrollListener($event)">

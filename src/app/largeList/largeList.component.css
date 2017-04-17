@@ -18,3 +18,8 @@ a {
 a:hover {
     background: #ddd;
 }
+
+input {
+    padding: 6px;
+    /*border-radius: 4px;*/
+}
