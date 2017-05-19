@@ -1,13 +1,59 @@
-<h3>
-  Large List (select) DEMO
-</h3>
-<large-list [options]="addrObjs" [title]="title"></large-list>
-<hr>
-<h3> Second Part </h3>
-There are over 20000 options in the large list, <br>
-which apply pagenation to promote performance. <br><br>
-Actually, chrome render select options before we select, <br>
-but firefox render the select after we click select. <br>
-This larget list component is meant to pollyfill the diff.
+<md-sidenav-container >
 
-<app-map-gl></app-map-gl>
+<nav md-tab-nav-bar>
+  <a md-tab-link (click)="sidenav.open()"> TabLink's Label    
+  </a>
+  <a md-tab-link> Tab2   
+  </a>
+  <a md-tab-link> Tab3
+  </a>
+</nav>
+
+
+  <md-sidenav #sidenav class="example-sidenav">
+    side nav
+  </md-sidenav>
+
+<!-- 
+  While <md-tab-group> is used to switch between views within a single route,
+<nav md-tab-nav-bar> provides a tab-like UI for navigating between routes
+ -->
+
+<md-grid-list cols="2" rowHeight="1:1">
+  <md-grid-tile>
+    <md-grid-tile-header>DEMO 1</md-grid-tile-header>
+    <large-list [options]="addrObjs" [title]="title"></large-list>
+    </md-grid-tile>
+  <md-grid-tile>
+    <md-grid-tile-header>Description</md-grid-tile-header>
+    <div>
+      There are over 20000 options in the large list, <br>
+      which apply pagenation to promote performance. <br><br>
+      Actually, chrome render select options before we select, <br>
+      but firefox render the select after we click select. <br>
+      This larget list component is meant to pollyfill the diff.
+    </div>
+    </md-grid-tile>
+  <md-grid-tile>
+    <md-card>
+      <md-card-title-group>
+        <md-card-title>Card DEMO</md-card-title>
+        <md-card-subtitle>Photo</md-card-subtitle>
+        <img md-card-avatar src="src/assets/RealShadow_flight.png">
+      </md-card-title-group>
+      <img md-card-image src="src/assets/RealShadow_flight.png">
+      <md-card-content>This demo card use.</md-card-content>
+      <md-card-actions>
+        <md-checkbox>Check me!</md-checkbox>
+        <button md-button >Click me!</button>
+      </md-card-actions>
+      
+    </md-card>
+  </md-grid-tile>
+  <md-grid-tile>
+    <app-map-gl></app-map-gl>
+  </md-grid-tile>
+</md-grid-list>
+
+
+</md-sidenav-container>

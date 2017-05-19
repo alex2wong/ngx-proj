@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 // import { } from 
 
-const CURSOR_RANGE = 1000;
+const CURSOR_RANGE = 200;
 
 @Component({
   selector: 'large-list',
@@ -104,6 +104,7 @@ export class LargeListComponent implements OnInit {
                 this.loadMoreAO();
             }, 300); 
         }
+        evt.stopPropagation();
     }
 
     // if function called as eventListener !! `this` means the Element which trigger evt ??

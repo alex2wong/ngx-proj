@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MdDialog, MdCheckbox } from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'select AddrObj';
   addrObjs = [];
+  leftLinks = [
+    {
+      "name": "项目地址"
+    },
+    {
+      "name": "统计面板"
+    },
+    {
+      "name": "后台管理"
+    }
+  ];
   constructor(){
     // random many addrObj
     for(let i=0;i<25600;i++) {
@@ -17,7 +29,6 @@ export class AppComponent {
     }
   }
 }
-
 
 interface AddrObj {
     name: string;
