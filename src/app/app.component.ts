@@ -24,7 +24,7 @@ export class AppComponent {
     // random many addrObj
     for(let i=0;i<25600;i++) {
       let addrObj = <AddrObj>{};
-      addrObj.name = i + " addrObj",
+      addrObj.name = "AddrObj" + (Math.random()*30000).toFixed(0);
       this.addrObjs.push(addrObj);
     }
   }

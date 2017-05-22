@@ -1,13 +1,13 @@
 <md-sidenav-container >
 
-<nav md-tab-nav-bar>
+<!--<nav md-tab-nav-bar>
   <a md-tab-link (click)="sidenav.open()"> TabLink's Label    
   </a>
   <a md-tab-link> Tab2   
   </a>
   <a md-tab-link> Tab3
   </a>
-</nav>
+</nav>-->
 
 
   <md-sidenav #sidenav class="example-sidenav">
@@ -21,20 +21,20 @@
 
 <md-grid-list cols="2" rowHeight="1:1">
   <md-grid-tile>
-    <md-grid-tile-header>DEMO 1</md-grid-tile-header>
+    <md-grid-tile-header>Large Select DEMO</md-grid-tile-header>
     <large-list [options]="addrObjs" [title]="title"></large-list>
     </md-grid-tile>
   <md-grid-tile>
     <md-grid-tile-header>Description</md-grid-tile-header>
     <div>
-      There are over 20000 options in the large list, <br>
+      There are over 20000 options in the large select, <br>
       which apply pagenation to promote performance. <br><br>
       Actually, chrome render select options before we select, <br>
       but firefox render the select after we click select. <br>
       This larget list component is meant to pollyfill the diff.
     </div>
     </md-grid-tile>
-  <md-grid-tile>
+  <!--<md-grid-tile>
     <md-card>
       <md-card-title-group>
         <md-card-title>Card DEMO</md-card-title>
@@ -52,7 +52,7 @@
   </md-grid-tile>
   <md-grid-tile>
     <app-map-gl></app-map-gl>
-  </md-grid-tile>
+  </md-grid-tile>-->
 </md-grid-list>
 
 

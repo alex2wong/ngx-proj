@@ -74,7 +74,7 @@ export class LargeListComponent implements OnInit {
                     tempAOs.push(curAO);
                 }
             }
-            this.filteredAddrObjs = tempAOs;
+            this.filteredAddrObjs = tempAOs.slice(0, CURSOR_RANGE);
             setTimeout(()=>{
                 this.openDropdown();
             }, 200);
