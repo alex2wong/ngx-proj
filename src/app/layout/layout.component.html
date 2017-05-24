@@ -1,4 +1,9 @@
-<md-sidenav #sidenav class="example-sidenav">
-  Jolly good!
-</md-sidenav>
-<button md-button (click)="sidenav.open()">SET</button>
+<h4>SIDE NAV</h4>
+<md-list>
+  <md-list-item>
+      <img md-list-avatar src="./assets/Stamen.jpg" alt="..."> CART
+  </md-list-item>
+  <md-list-item *ngFor="let nav of navs">
+      <img md-list-avatar [src]="nav.profile" alt="..."> {{nav.name}}
+  </md-list-item>
+</md-list>

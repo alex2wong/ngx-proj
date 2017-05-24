@@ -8,10 +8,66 @@
   <a md-tab-link> Tab3
   </a>
 </nav>-->
-
+<button md-button (click)="sidenav.open()" style="display:inline-block;">SIDE</button>
+<md-tab-group>
+   <md-tab label="LAYOUT" >
+     <div class="pure-g" style="margin: 0,auto;height: 100%;overflow-y: hidden;">
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile">
+        <h4> This is tile A </h4>
+        <p>自适应布局是个老话题，但笔者平时接触不多，这次准备了解并且实践下。简单查阅了下资料，基本上主流的方式是基于
+[媒体查询创建响应式网站]</p>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile">
+        <h4> This is tile B </h4>
+        <p>这其中也会涉及到Flex 等具体的css属性，来辅助伸缩布局。但媒体查询是区别不同设备屏幕的基础，Flex并没有这个功能。          
+        </p>
+      </div>
+      <div class="pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile">
+        <h4> This is tile C </h4>
+        <p>媒体查询其实比较简单，许多前端UI库已经内置了设定好的媒体查询，并且大多以这种形式出现</p>
+      </div>
+     </div>
+  </md-tab>
+  <md-tab label="COMPONENTS">
+    <md-card>
+      <md-card-title-group>
+        <md-card-title>Card DEMO</md-card-title>
+        <md-card-subtitle>Photo</md-card-subtitle>
+        <img md-card-avatar src="./assets/RealShadow_flight.png">
+      </md-card-title-group>
+      <!--*ngFor="let img of bigImages | async" -->
+      <img md-card-image src="./assets/RealShadow_flight.png">
+      <md-card-content>This demo card use.</md-card-content>
+      <md-card-actions>
+        <md-checkbox (change)="toggleprofile()"> Display profile </md-checkbox>
+        <button md-button >Click me!</button>
+      </md-card-actions>
+      
+    </md-card>
+  </md-tab>
+  <md-tab label="SELECT DEMO">
+    <!--<md-grid-list cols="1" rowHeight="2:1">-->
+      <md-card>
+        <md-card-title>Large Select</md-card-title>
+        <md-card-content>
+          <large-list [options]="addrObjs" [title]="title"></large-list>
+        </md-card-content>
+      </md-card>  
+      <md-card>
+        <md-card-title>Description</md-card-title>
+        <md-card-content>
+          There are over 20000 options in the large select, <br>
+          which apply pagenation to promote performance. <br><br>
+          Actually, chrome render select options before we select, <br>
+          but firefox render the select after we click select. <br>
+          This larget list component is meant to pollyfill the diff.
+        </md-card-content>
+      </md-card>
+  </md-tab> 
+</md-tab-group>
 
   <md-sidenav #sidenav class="example-sidenav">
-    side nav
+    <app-layout></app-layout>
   </md-sidenav>
 
 <!-- 
@@ -19,41 +75,9 @@
 <nav md-tab-nav-bar> provides a tab-like UI for navigating between routes
  -->
 
-<md-grid-list cols="2" rowHeight="1:1">
-  <md-grid-tile>
-    <md-grid-tile-header>Large Select DEMO</md-grid-tile-header>
-    <large-list [options]="addrObjs" [title]="title"></large-list>
-    </md-grid-tile>
-  <md-grid-tile>
-    <md-grid-tile-header>Description</md-grid-tile-header>
-    <div>
-      There are over 20000 options in the large select, <br>
-      which apply pagenation to promote performance. <br><br>
-      Actually, chrome render select options before we select, <br>
-      but firefox render the select after we click select. <br>
-      This larget list component is meant to pollyfill the diff.
-    </div>
-    </md-grid-tile>
+
   <!--<md-grid-tile>
-    <md-card>
-      <md-card-title-group>
-        <md-card-title>Card DEMO</md-card-title>
-        <md-card-subtitle>Photo</md-card-subtitle>
-        <img md-card-avatar src="src/assets/RealShadow_flight.png">
-      </md-card-title-group>
-      <img md-card-image src="src/assets/RealShadow_flight.png">
-      <md-card-content>This demo card use.</md-card-content>
-      <md-card-actions>
-        <md-checkbox>Check me!</md-checkbox>
-        <button md-button >Click me!</button>
-      </md-card-actions>
-      
-    </md-card>
-  </md-grid-tile>
-  <md-grid-tile>
     <app-map-gl></app-map-gl>
   </md-grid-tile>-->
-</md-grid-list>
-
 
 </md-sidenav-container>

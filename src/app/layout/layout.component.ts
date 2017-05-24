@@ -6,10 +6,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./layout.component.css']
 })
 export class LayoutComponent implements OnInit {
-
-  constructor() { }
+  navs = [];
+  constructor() {    
+  }
 
   ngOnInit() {
+    this.navs = [
+      {
+        "name": 'SETTING',
+        "profile": './assets/RealShadow_flight.png',
+      },
+      {
+        "name": 'SHOPPING',
+        "profile": './assets/SnowMan.jpg',
+      },
+      {
+        "name": 'CART',
+        "profile": './assets/Stamen.jpg',
+      },
+    ]
   }
 
 }

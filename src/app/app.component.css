@@ -13,3 +13,44 @@ md-grid-tile {
     top: 0;
     left: 0;
 }
+
+.example-sidenav {
+    padding: 10px;
+}
+
+md-card {
+    float: left;
+    /*display: inline-block;*/
+    max-width: 480px;
+    margin: 10px 10px;
+    background: #eee;
+}
+
+@media (max-width: 1280px) {
+    md-card {
+        margin-top: 10px;
+        background: #eee;
+    }
+}
+.tile {
+     min-height: 250px;
+     min-width: 300px;
+     padding: 10px;
+     margin-top: 5px;
+     /*box-sizing: border-box;*/
+     background-color: #eee;
+     text-align: center;
+     vertical-align: middle;
+     transition: background-color width, .5, ease-out;
+}
+.tile:hover {
+    background-color: #fff;    
+}
+.my-card {
+    height: 100%;
+    width: 100%;
+    background: #eee;
+}
+p {
+    text-align: start;
+}

@@ -9,19 +9,23 @@ import { AppComponent } from './app.component';
 import { LargeListComponent } from './largeList/largeList.component';
 import { MapGLComponent } from './map-gl/map-gl.component';
 import { LayoutComponent } from './layout/layout.component';
+import { NoopAnimationsModule } from "@angular/platform-browser/animations";
+import { GetbingComponent } from './getbing/getbing.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LargeListComponent,
     MapGLComponent,
-    LayoutComponent
+    LayoutComponent,
+    GetbingComponent,
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
     MaterialModule,
+    NoopAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
