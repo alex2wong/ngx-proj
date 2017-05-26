@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class AppComponent {
   title = 'select AddrObj';
   bigImages: Observable<bingRes>;
+  bingPrefix = "http://www.bing.com";
   addrObjs = [];
   leftLinks = [
     {

@@ -29,15 +29,16 @@
      </div>
   </md-tab>
   <md-tab label="COMPONENTS">
-    <md-card>
+    <md-spinner *ngIf="!bigImages"></md-spinner> 
+    <md-card *ngFor="let img of bigImages | async">
       <md-card-title-group>
-        <md-card-title>Card DEMO</md-card-title>
+        <md-card-title>每日一图</md-card-title>
         <md-card-subtitle>Photo</md-card-subtitle>
         <img md-card-avatar src="./assets/RealShadow_flight.png">
       </md-card-title-group>
       <!--*ngFor="let img of bigImages | async" -->
-      <img md-card-image src="./assets/RealShadow_flight.png">
-      <md-card-content>This demo card use.</md-card-content>
+      <img md-card-image src={{bingPrefix}}{{img.url}}>
+      <md-card-content>{{img.copyright}}</md-card-content>
       <md-card-actions>
         <md-checkbox (change)="toggleprofile()"> Display profile </md-checkbox>
         <button md-button >Click me!</button>

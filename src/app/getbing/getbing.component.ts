@@ -19,9 +19,9 @@ export class GetbingComponent implements OnInit {
 
   getBingImage(): Observable<bingRes> {
     // return Observable. map is one of operator..
-    return this.http.get("http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
+    return this.http.get("http://111.231.11.20:3002/proxy?proxyURI=http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
       .map((r: Response) => {
-        return r.json();
+        return r.json().images;
       });
   }
 }
@@ -38,4 +38,3 @@ interface imgObject {
   "urlbase": string;
   "copyright": string;
 }
-
