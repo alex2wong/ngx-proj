@@ -11,6 +11,7 @@ import { MapGLComponent } from './map-gl/map-gl.component';
 import { LayoutComponent } from './layout/layout.component';
 import { NoopAnimationsModule } from "@angular/platform-browser/animations";
 import { GetbingComponent } from './getbing/getbing.component';
+import { UploadComponent } from './upload/upload.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { GetbingComponent } from './getbing/getbing.component';
     MapGLComponent,
     LayoutComponent,
     GetbingComponent,
+    UploadComponent,
   ],
   imports: [
     BrowserModule,

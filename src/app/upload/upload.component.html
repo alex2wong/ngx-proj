@@ -1,0 +1,7 @@
+<div>
+  <input type="file" name="file2upload" id="file2upload" (change)="upload($event)"  value="选择文件">
+  <p>名称 {{fileloaded.name}}</p>
+  <p>类型 {{fileloaded.type}},  大小 {{fileloaded.size}} bytes</p>
+  <md-checkbox [(ngModel)]="compressImg"> Compress Image </md-checkbox> &nbsp;
+  <button md-raised-button color="accent" (click)="submit($event)"> Object Detect </button>
+</div>

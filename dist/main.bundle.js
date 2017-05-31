@@ -19,10 +19,10 @@ webpackEmptyContext.id = 135;
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(149);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__polyfills_ts__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser_dynamic__ = __webpack_require__(141);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(148);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__environments_environment__ = __webpack_require__(149);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app_app_module__ = __webpack_require__(144);
 
 
@@ -95,8 +95,8 @@ var AppComponent = (function () {
 AppComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'app-root',
-        template: __webpack_require__(307),
-        styles: [__webpack_require__(301)],
+        template: __webpack_require__(309),
+        styles: [__webpack_require__(302)],
         providers: [__WEBPACK_IMPORTED_MODULE_1__getbing_getbing_component__["a" /* GetbingComponent */]],
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__getbing_getbing_component__["a" /* GetbingComponent */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__getbing_getbing_component__["a" /* GetbingComponent */]) === "function" && _a || Object])
@@ -122,6 +122,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__layout_layout_component__ = __webpack_require__(146);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__angular_platform_browser_animations__ = __webpack_require__(142);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__getbing_getbing_component__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__upload_upload_component__ = __webpack_require__(148);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -134,6 +135,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 // import { Router } from '@angular/router';
+
 
 
 
@@ -154,6 +156,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__map_gl_map_gl_component__["a" /* MapGLComponent */],
             __WEBPACK_IMPORTED_MODULE_8__layout_layout_component__["a" /* LayoutComponent */],
             __WEBPACK_IMPORTED_MODULE_10__getbing_getbing_component__["a" /* GetbingComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__upload_upload_component__["a" /* UploadComponent */],
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -339,8 +342,8 @@ __decorate([
 LargeListComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'large-list',
-        template: __webpack_require__(309),
-        styles: [__webpack_require__(303)],
+        template: __webpack_require__(311),
+        styles: [__webpack_require__(304)],
         providers: [__WEBPACK_IMPORTED_MODULE_0__angular_core__["M" /* Input */]]
     }),
     __metadata("design:paramtypes", [])
@@ -391,8 +394,8 @@ var LayoutComponent = (function () {
 LayoutComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'app-layout',
-        template: __webpack_require__(310),
-        styles: [__webpack_require__(304)]
+        template: __webpack_require__(312),
+        styles: [__webpack_require__(305)]
     }),
     __metadata("design:paramtypes", [])
 ], LayoutComponent);
@@ -437,8 +440,8 @@ var MapGLComponent = (function () {
 MapGLComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'app-map-gl',
-        template: __webpack_require__(311),
-        styles: [__webpack_require__(305)]
+        template: __webpack_require__(313),
+        styles: [__webpack_require__(306)]
     }),
     __metadata("design:paramtypes", [])
 ], MapGLComponent);
@@ -448,6 +451,62 @@ MapGLComponent = __decorate([
 /***/ }),
 
 /***/ 148:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UploadComponent; });
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var UploadComponent = (function () {
+    function UploadComponent() {
+        this.compressImg = true;
+    }
+    UploadComponent.prototype.ngOnInit = function () {
+        this.fileloaded = {
+            name: "",
+            type: "",
+            size: "",
+        };
+    };
+    // upload img file..
+    UploadComponent.prototype.upload = function (evt) {
+        console.warn("file Changed..");
+        var $ele = evt.target;
+        if (($ele.files.length) > 0) {
+            this.fileloaded = $ele.files[0];
+        }
+    };
+    // submit the img to server..
+    UploadComponent.prototype.submit = function (evt) {
+        // server path: http://111.231.11.20:3000/upload/
+        console.warn("uploading to http://111.231.11.20:3000/upload/ , compressed:" + this.compressImg);
+        // http.PUT()
+    };
+    return UploadComponent;
+}());
+UploadComponent = __decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
+        selector: 'app-upload',
+        template: __webpack_require__(314),
+        styles: [__webpack_require__(307)]
+    }),
+    __metadata("design:paramtypes", [])
+], UploadComponent);
+
+//# sourceMappingURL=E:/WebProject/AngularGit/Angular-cli_Proj/ngx-proj/src/upload.component.js.map
+
+/***/ }),
+
+/***/ 149:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -464,41 +523,41 @@ var environment = {
 
 /***/ }),
 
-/***/ 149:
+/***/ 150:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(163);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__ = __webpack_require__(164);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_core_js_es6_symbol__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(156);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__ = __webpack_require__(157);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_core_js_es6_object___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_core_js_es6_object__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__ = __webpack_require__(153);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_core_js_es6_function___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_core_js_es6_function__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(158);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_core_js_es6_parse_int__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(157);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__ = __webpack_require__(158);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_core_js_es6_parse_float__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(155);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__ = __webpack_require__(156);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_core_js_es6_number___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_core_js_es6_number__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(154);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__ = __webpack_require__(155);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_core_js_es6_math___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_core_js_es6_math__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__ = __webpack_require__(163);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_core_js_es6_string___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_core_js_es6_string__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__ = __webpack_require__(152);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_core_js_es6_date___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_core_js_es6_date__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(150);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__ = __webpack_require__(151);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_core_js_es6_array___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_core_js_es6_array__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(160);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__ = __webpack_require__(161);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_core_js_es6_regexp__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(153);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__ = __webpack_require__(154);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_core_js_es6_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_core_js_es6_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(161);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__ = __webpack_require__(162);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_core_js_es6_set___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_core_js_es6_set__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(159);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__ = __webpack_require__(160);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(164);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(362);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(365);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 // This file includes polyfills needed by Angular 2 and is loaded before
 // the app. You can add your own extra polyfills to this file.
@@ -522,15 +581,15 @@ var environment = {
 
 /***/ }),
 
-/***/ 301:
+/***/ 302:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(31)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
 // module
-exports.push([module.i, "md-grid-tile {\r\n    /*padding: 10px;*/\r\n    /*margin: 5px;*/\r\n    background: #eee;\r\n    border-radius: 4px;\r\n    /*box-shadow: 2px 2px 2px rgba(0,0,0,0.2);*/\r\n}\r\n\r\n.topLeft{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n}\r\n\r\n.example-sidenav {\r\n    padding: 10px;\r\n}\r\n\r\nmd-card {\r\n    float: left;\r\n    /*display: inline-block;*/\r\n    max-width: 480px;\r\n    margin: 10px 10px;\r\n    background: #eee;\r\n}\r\n\r\n@media (max-width: 1280px) {\r\n    md-card {\r\n        margin-top: 10px;\r\n        background: #eee;\r\n    }\r\n}\r\n.tile {\r\n     min-height: 250px;\r\n     min-width: 300px;\r\n     padding: 10px;\r\n     margin-top: 5px;\r\n     /*box-sizing: border-box;*/\r\n     background-color: #eee;\r\n     text-align: center;\r\n     vertical-align: middle;\r\n     transition: background-color width, .5, ease-out;\r\n}\r\n.tile:hover {\r\n    background-color: #fff;    \r\n}\r\n.my-card {\r\n    height: 100%;\r\n    width: 100%;\r\n    background: #eee;\r\n}\r\np {\r\n    text-align: start;\r\n}\r\n", ""]);
+exports.push([module.i, "md-grid-tile {\r\n    /*padding: 10px;*/\r\n    /*margin: 5px;*/\r\n    background: #eee;\r\n    border-radius: 4px;\r\n    /*box-shadow: 2px 2px 2px rgba(0,0,0,0.2);*/\r\n}\r\n\r\n.topLeft{\r\n    padding: 5px;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    z-index: 1000;\r\n}\r\n\r\n.example-sidenav {\r\n    padding: 10px;\r\n}\r\n\r\nmd-card {\r\n    float: left;\r\n    /*display: inline-block;*/\r\n    max-width: 480px;\r\n    margin: 10px 10px;\r\n    background: #eee;\r\n}\r\n\r\n@media (max-width: 1280px) {\r\n    md-card {\r\n        margin-top: 10px;\r\n        background: #eee;\r\n    }\r\n}\r\n.tile {\r\n     min-height: 250px;\r\n     min-width: 300px;\r\n     padding: 10px;\r\n     margin-top: 5px;\r\n     font-size: 14px;\r\n     /*box-sizing: border-box;*/\r\n     background-color: #eee;\r\n     text-align: center;\r\n     vertical-align: middle;\r\n     transition: background-color width, .5, ease-out;\r\n}\r\n.tile:hover {\r\n    background-color: #fff;    \r\n}\r\n.my-card {\r\n    height: 100%;\r\n    width: 100%;\r\n    background: #eee;\r\n}\r\np {\r\n    text-align: start;\r\n}\r\nmd-tab-group {\r\n    margin-left: 10px;\r\n}\r\n", ""]);
 
 // exports
 
@@ -540,10 +599,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 302:
+/***/ 303:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(31)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -558,10 +617,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 303:
+/***/ 304:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(31)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -576,10 +635,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 304:
+/***/ 305:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(31)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -594,10 +653,10 @@ module.exports = module.exports.toString();
 
 /***/ }),
 
-/***/ 305:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(31)();
+exports = module.exports = __webpack_require__(27)();
 // imports
 
 
@@ -613,41 +672,66 @@ module.exports = module.exports.toString();
 /***/ }),
 
 /***/ 307:
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
-module.exports = "<md-sidenav-container >\r\n\r\n<!--<nav md-tab-nav-bar>\r\n  <a md-tab-link (click)=\"sidenav.open()\"> TabLink's Label    \r\n  </a>\r\n  <a md-tab-link> Tab2   \r\n  </a>\r\n  <a md-tab-link> Tab3\r\n  </a>\r\n</nav>-->\r\n<button md-button (click)=\"sidenav.open()\" style=\"display:inline-block;\">SIDE</button>\r\n<md-tab-group>\r\n   <md-tab label=\"LAYOUT\" >\r\n     <div class=\"pure-g\" style=\"margin: 0,auto;height: 100%;overflow-y: hidden;\">\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h4> This is tile A </h4>\r\n        <p>自适应布局是个老话题，但笔者平时接触不多，这次准备了解并且实践下。简单查阅了下资料，基本上主流的方式是基于\r\n[媒体查询创建响应式网站]</p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h4> This is tile B </h4>\r\n        <p>这其中也会涉及到Flex 等具体的css属性，来辅助伸缩布局。但媒体查询是区别不同设备屏幕的基础，Flex并没有这个功能。          \r\n        </p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h4> This is tile C </h4>\r\n        <p>媒体查询其实比较简单，许多前端UI库已经内置了设定好的媒体查询，并且大多以这种形式出现</p>\r\n      </div>\r\n     </div>\r\n  </md-tab>\r\n  <md-tab label=\"COMPONENTS\">\r\n    <md-spinner *ngIf=\"!bigImages\"></md-spinner> \r\n    <md-card *ngFor=\"let img of bigImages | async\">\r\n      <md-card-title-group>\r\n        <md-card-title>每日一图</md-card-title>\r\n        <md-card-subtitle>Photo</md-card-subtitle>\r\n        <img md-card-avatar src=\"./assets/RealShadow_flight.png\">\r\n      </md-card-title-group>\r\n      <!--*ngFor=\"let img of bigImages | async\" -->\r\n      <img md-card-image src={{bingPrefix}}{{img.url}}>\r\n      <md-card-content>{{img.copyright}}</md-card-content>\r\n      <md-card-actions>\r\n        <md-checkbox (change)=\"toggleprofile()\"> Display profile </md-checkbox>\r\n        <button md-button >Click me!</button>\r\n      </md-card-actions>\r\n      \r\n    </md-card>\r\n  </md-tab>\r\n  <md-tab label=\"SELECT DEMO\">\r\n    <!--<md-grid-list cols=\"1\" rowHeight=\"2:1\">-->\r\n      <md-card>\r\n        <md-card-title>Large Select</md-card-title>\r\n        <md-card-content>\r\n          <large-list [options]=\"addrObjs\" [title]=\"title\"></large-list>\r\n        </md-card-content>\r\n      </md-card>  \r\n      <md-card>\r\n        <md-card-title>Description</md-card-title>\r\n        <md-card-content>\r\n          There are over 20000 options in the large select, <br>\r\n          which apply pagenation to promote performance. <br><br>\r\n          Actually, chrome render select options before we select, <br>\r\n          but firefox render the select after we click select. <br>\r\n          This larget list component is meant to pollyfill the diff.\r\n        </md-card-content>\r\n      </md-card>\r\n  </md-tab> \r\n</md-tab-group>\r\n\r\n  <md-sidenav #sidenav class=\"example-sidenav\">\r\n    <app-layout></app-layout>\r\n  </md-sidenav>\r\n\r\n<!-- \r\n  While <md-tab-group> is used to switch between views within a single route,\r\n<nav md-tab-nav-bar> provides a tab-like UI for navigating between routes\r\n -->\r\n\r\n\r\n  <!--<md-grid-tile>\r\n    <app-map-gl></app-map-gl>\r\n  </md-grid-tile>-->\r\n\r\n</md-sidenav-container>\r\n"
+exports = module.exports = __webpack_require__(27)();
+// imports
 
-/***/ }),
 
-/***/ 308:
-/***/ (function(module, exports) {
+// module
+exports.push([module.i, "#file2upload {\r\n    /*width: 40px;*/\r\n    height: 60px;\r\n    border: 2px dotted #aaa;\r\n}\r\n", ""]);
 
-module.exports = "<p>\n  getbing works!\n</p>\n"
+// exports
+
+
+/*** EXPORTS FROM exports-loader ***/
+module.exports = module.exports.toString();
 
 /***/ }),
 
 /***/ 309:
 /***/ (function(module, exports) {
 
-module.exports = "<div (click)=\"hideDropdown($event)\">\r\n    <input [(ngModel)]=\"filterStr\" placeholder=\"keyword to search\" (blur)=\"searchAO($event)\" (keyup.enter)=\"searchAO($event)\">\r\n    <div class=\"dropdown-container\">\r\n        <!--click dropdown to toggle the dropdown-menu display-->\r\n        <a href=\"javascript:void(0)\" class=\"lg-select\" data-toggle=\"dropdown\" (click)=\"toggleDropdown($event)\">{{selected.name}}\r\n            <span class=\"caret\"></span>\r\n        </a>\r\n        <ul class=\"dropdown-menu\" (wheel)=\"scrollListener($event)\">\r\n        <li *ngIf=\"filteredAddrObjs.length==0\">No addrobj</li>\r\n        <li *ngFor=\"let item of filteredAddrObjs\" (click)=\"selectAO($event, item)\">\r\n                <span>{{item.name}}</span>\r\n            </li> \r\n        </ul>\r\n    <div>\r\n</div>\r\n"
+module.exports = "<md-sidenav-container >\r\n\r\n<!--<nav md-tab-nav-bar>\r\n  <a md-tab-link (click)=\"sidenav.open()\"> TabLink's Label    \r\n  </a>\r\n  <a md-tab-link> Tab2   \r\n  </a>\r\n  <a md-tab-link> Tab3\r\n  </a>\r\n</nav>-->\r\n<button md-icon-button (click)=\"sidenav.open()\" class=\"topLeft\">\r\n  <md-icon>more_vert</md-icon>\r\n</button>\r\n<md-tab-group>\r\n   <md-tab color=\"accent\" label=\"LAYOUT\" >\r\n     <div class=\"pure-g\" style=\"margin: 0,auto;height: 100%;overflow-y: hidden;\">\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> Upload Image </h3>\r\n        <app-upload></app-upload>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile A </h3>\r\n        <p>自适应布局是个老话题，但笔者平时接触不多，这次准备了解并且实践下。简单查阅了下资料，基本上主流的方式是基于\r\n[媒体查询创建响应式网站]</p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile B </h3>\r\n        <p>这其中也会涉及到Flex 等具体的css属性，来辅助伸缩布局。但媒体查询是区别不同设备屏幕的基础，Flex并没有这个功能。          \r\n        </p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile C </h3>\r\n        <p>媒体查询其实比较简单，许多前端UI库已经内置了设定好的媒体查询，并且大多以这种形式出现</p>\r\n      </div>\r\n     </div>\r\n  </md-tab>\r\n  <md-tab label=\"COMPONENTS\">\r\n    <md-spinner *ngIf=\"!bigImages\"></md-spinner> \r\n    <md-card *ngFor=\"let img of bigImages | async\">\r\n      <md-card-title-group>\r\n        <md-card-title>每日一图</md-card-title>\r\n        <md-card-subtitle>Photo</md-card-subtitle>\r\n        <img md-card-avatar src=\"./assets/RealShadow_flight.png\">\r\n      </md-card-title-group>\r\n      <!--*ngFor=\"let img of bigImages | async\" -->\r\n      <img md-card-image src={{bingPrefix}}{{img.url}}>\r\n      <md-card-content>{{img.copyright}}</md-card-content>\r\n      <md-card-actions>\r\n        <md-checkbox (change)=\"toggleprofile()\"> Display profile </md-checkbox>\r\n        <button md-button color=\"warn\">Click me!</button>\r\n      </md-card-actions>\r\n      \r\n    </md-card>\r\n  </md-tab>\r\n  <md-tab label=\"SELECT DEMO\">\r\n    <!--<md-grid-list cols=\"1\" rowHeight=\"2:1\">-->\r\n      <md-card>\r\n        <md-card-title>Large Select</md-card-title>\r\n        <md-card-content>\r\n          <large-list [options]=\"addrObjs\" [title]=\"title\"></large-list>\r\n        </md-card-content>\r\n      </md-card>  \r\n      <md-card>\r\n        <md-card-title>Description</md-card-title>\r\n        <md-card-content>\r\n          There are over 20000 options in the large select, <br>\r\n          which apply pagenation to promote performance. <br><br>\r\n          Actually, chrome render select options before we select, <br>\r\n          but firefox render the select after we click select. <br>\r\n          This larget list component is meant to pollyfill the diff.\r\n        </md-card-content>\r\n      </md-card>\r\n  </md-tab> \r\n</md-tab-group>\r\n\r\n  <md-sidenav #sidenav class=\"example-sidenav\">\r\n    <app-layout></app-layout>\r\n  </md-sidenav>\r\n\r\n<!-- \r\n  While <md-tab-group> is used to switch between views within a single route,\r\n<nav md-tab-nav-bar> provides a tab-like UI for navigating between routes\r\n -->\r\n\r\n\r\n  <!--<md-grid-tile>\r\n    <app-map-gl></app-map-gl>\r\n  </md-grid-tile>-->\r\n\r\n</md-sidenav-container>\r\n"
 
 /***/ }),
 
 /***/ 310:
 /***/ (function(module, exports) {
 
-module.exports = "<h4>SIDE NAV</h4>\n<md-list>\n  <md-list-item>\n      <img md-list-avatar src=\"./assets/Stamen.jpg\" alt=\"...\">&nbsp;&nbsp;CART\n  </md-list-item>\n  <md-list-item *ngFor=\"let nav of navs\">\n      <img md-list-avatar [src]=\"nav.profile\" alt=\"...\">&nbsp;&nbsp;{{nav.name}}\n  </md-list-item>\n</md-list>\n"
+module.exports = "<p>\n  getbing works!\n</p>\n"
 
 /***/ }),
 
 /***/ 311:
 /***/ (function(module, exports) {
 
+module.exports = "<div (click)=\"hideDropdown($event)\">\r\n    <input [(ngModel)]=\"filterStr\" placeholder=\"keyword to search\" (blur)=\"searchAO($event)\" (keyup.enter)=\"searchAO($event)\">\r\n    <div class=\"dropdown-container\">\r\n        <!--click dropdown to toggle the dropdown-menu display-->\r\n        <a href=\"javascript:void(0)\" class=\"lg-select\" data-toggle=\"dropdown\" (click)=\"toggleDropdown($event)\">{{selected.name}}\r\n            <span class=\"caret\"></span>\r\n        </a>\r\n        <ul class=\"dropdown-menu\" (wheel)=\"scrollListener($event)\">\r\n        <li *ngIf=\"filteredAddrObjs.length==0\">No addrobj</li>\r\n        <li *ngFor=\"let item of filteredAddrObjs\" (click)=\"selectAO($event, item)\">\r\n                <span>{{item.name}}</span>\r\n            </li> \r\n        </ul>\r\n    <div>\r\n</div>\r\n"
+
+/***/ }),
+
+/***/ 312:
+/***/ (function(module, exports) {
+
+module.exports = "<h4>SIDE NAV</h4>\n<md-list>\n  <md-list-item>\n      <img md-list-avatar src=\"./assets/Stamen.jpg\" alt=\"...\">&nbsp;&nbsp;CART\n  </md-list-item>\n  <md-list-item *ngFor=\"let nav of navs\">\n      <img md-list-avatar [src]=\"nav.profile\" alt=\"...\">&nbsp;&nbsp;{{nav.name}}\n  </md-list-item>\n</md-list>\n"
+
+/***/ }),
+
+/***/ 313:
+/***/ (function(module, exports) {
+
 module.exports = "<div id=\"map\"></div>"
 
 /***/ }),
 
-/***/ 363:
+/***/ 314:
+/***/ (function(module, exports) {
+
+module.exports = "<div>\n  <input type=\"file\" name=\"file2upload\" id=\"file2upload\" (change)=\"upload($event)\"  value=\"选择文件\">\n  <p>名称 {{fileloaded.name}}</p>\n  <p>类型 {{fileloaded.type}},  大小 {{fileloaded.size}} bytes</p>\n  <md-checkbox [(ngModel)]=\"compressImg\"> Compress Image </md-checkbox> &nbsp;\n  <button md-raised-button color=\"accent\" (click)=\"submit($event)\"> Object Detect </button>\n</div>\n"
+
+/***/ }),
+
+/***/ 366:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(136);
@@ -691,8 +775,8 @@ var GetbingComponent = (function () {
 GetbingComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'app-getbing',
-        template: __webpack_require__(308),
-        styles: [__webpack_require__(302)]
+        template: __webpack_require__(310),
+        styles: [__webpack_require__(303)]
     }),
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["c" /* Injectable */])(),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
@@ -703,5 +787,5 @@ var _a;
 
 /***/ })
 
-},[363]);
+},[366]);
 //# sourceMappingURL=main.bundle.js.map

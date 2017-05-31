@@ -1,23 +1,18 @@
-# ngx-proj
-AngularX project based on Angular-cli, include customized useful component and directive.
+## 关于本项目 
+![In English](https://github.com/alex2wong/ngx-proj/README_eng)
 
-This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
+基于Angular-cli搭建，包含了一些自定义的组件和服务
+本项目用[angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.构建
 
-## Customized components
-- large list/select: apply pagenation to promote performance. <br><br>
-Actually, chrome render select options before we select, <br>
-but firefox render the select after we click select. <br>
-This larget list component is meant to pollyfill the diff and provide fluid experience.
+## 自定义组件
+- 大容量下拉菜单组件 (large list/select): 提供分页以提高浏览器渲染性能. <br>
+Chrome，Firefox采用不同策略渲染内置的Select 下拉菜单, 面对大量数据 <br>
+Chrome在加载页面时卡顿，火狐在用户点击下拉时渲染卡顿。这个自定义组件 <br>
+可兼容这两种浏览器的表现差异，提供流畅的下拉菜单功能，带搜索功能
 
-    [DEMO](https://alex2wong.github.io/ngx-proj/dist/)
+  [DEMO](https://alex2wong.github.io/ngx-proj/dist/) <br>
 
-## Development server
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- 获取必应每日一图组件 (getbing) <br>
+编写这一服务，可注入到需要用到必应每日一图的组件中 <br><br>
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive/pipe/service/class/module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+- 压缩传图组件 (compress and upload)
