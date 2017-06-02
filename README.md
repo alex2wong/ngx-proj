@@ -1,5 +1,5 @@
 ## 关于本项目 
-![In English](https://github.com/alex2wong/ngx-proj/README_eng)
+[In English](https://github.com/alex2wong/ngx-proj/blob/master/README_eng.md)
 
 基于Angular-cli搭建，包含了一些自定义的组件和服务
 本项目用[angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.构建
