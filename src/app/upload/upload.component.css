@@ -1,5 +1,14 @@
 #file2upload {
     /*width: 40px;*/
-    height: 60px;
+    height: 76px;
     border: 2px dotted #aaa;
+    background-repeat: none;
+    background-position: center;
+}
+.upload-focus,
+#file2upload:hover,
+#file2upload:focus {    
+    background-color: #f592b3;
+    /*border: 2px solid #aaa;*/
+    transition: background-image, .4s;
 }
