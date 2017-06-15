@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Http, RequestOptionsArgs, RequestOptions, Response } from '@angular/http';
+import 'rxjs/add/operator/toPromise';
 
 @Component({
   selector: 'app-upload',
@@ -12,7 +14,15 @@ export class UploadComponent implements OnInit {
   form: any;
   inputEle: any;
   actionURL: string;
-  constructor() { }
+  http: Http;
+  timer: any;
+  fileContent: any;
+  baseRequestOpts: RequestOptionsArgs;
+  @Output() imageResult = new EventEmitter();
+
+  constructor(http: Http) {
+    this.http = http;    
+  }
 
   ngOnInit() {
     this.fileloaded = {
@@ -20,7 +30,7 @@ export class UploadComponent implements OnInit {
       type: "",
       size: "",
     }    
-    this.actionURL = "http://127.0.0.1:8000/upload";  
+    this.actionURL = "http://111.231.11.20:8000/upload";  
   }
 
   // upload img file..
@@ -30,9 +40,13 @@ export class UploadComponent implements OnInit {
     if (($ele.files.length) > 0 && (/image\/\w+/.test($ele.files[0].type))) {
       this.fileloaded = $ele.files[0];
       let reader = new FileReader();
-      reader.onload = function(result: ProgressEvent) {
+      // reader as DataURL base64 imageSource.
+      reader.onload = (result: ProgressEvent) => {
+        this.fileContent = result;
         let inputEle: HTMLInputElement = <HTMLInputElement>document.querySelector('#file2upload');
         inputEle.style.backgroundImage = "url(" + reader.result + ")";
+        inputEle.style.opacity = "0.6";
+        this.imageResult.emit(true);
       }
       reader.readAsDataURL(this.fileloaded);
     } else {
@@ -49,8 +63,35 @@ export class UploadComponent implements OnInit {
   submit(evt) {
     // server path: http://111.231.11.20:3000/upload/
     console.warn("uploading to " + this.actionURL + " , compressed:" +　this.compressImg);
-    this.form = document.querySelector('#imageForm'); 
-    
-    this.form.submit();
+    if (!this.fileloaded.size) return;
+    this.form = document.querySelector('#imageForm');
+
+    this.http.post(this.actionURL, this.constructForm()).toPromise()
+      .then((res: any) => {
+        if (res._body) {
+          alert(res._body);
+          let _body = JSON.parse(res._body),
+          objs = JSON.parse(_body.objs),
+          objects = objs.objects;
+          objects.forEach(element => {
+            // render rect on image..
+          });
+        }
+        evt.target.disabled = false;
+      })
+    evt.target.disabled = true;
+  }
+
+  constructForm() {
+    let sendable = new FormData();
+    sendable.append('file2upload', this.fileloaded, this.fileloaded.name);
+    return sendable;
+  }
+
+  checkResult() {
+    let targetFrame = top.frames['__blank'];
+    if (targetFrame.document.body.innerHTML) {
+      return targetFrame.document.body.innerHTML;
+    }
   }
 }

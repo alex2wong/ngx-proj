@@ -46,6 +46,19 @@ export class AppComponent {
   toggleprofile() {
     //
   }
+
+  // receive reader.result from upload component.
+  previewImage(evt: Event) {
+      let imgContainer = document.createElement("div"),
+          imgSource = <HTMLInputElement>document.querySelector("#file2upload"),
+          tileContainer = <HTMLDivElement>document.querySelector("#tileContainer");
+      imgContainer.style.backgroundImage = imgSource.style.backgroundImage;
+      imgContainer.style.height = "250px";      
+      tileContainer.insertBefore(imgContainer, tileContainer.children[1]);
+      imgContainer.className = "pure-u-1 pure-u-md-1-2 pure-u-xl-1-3";
+      imgContainer.style.padding = "10px";
+      imgContainer.style.marginTop = "5px";
+  }
 }
 
 interface AddrObj {
