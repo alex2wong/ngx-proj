@@ -53,11 +53,13 @@ export class AppComponent {
           imgSource = <HTMLInputElement>document.querySelector("#file2upload"),
           tileContainer = <HTMLDivElement>document.querySelector("#tileContainer");
       imgContainer.style.backgroundImage = imgSource.style.backgroundImage;
-      imgContainer.style.height = "250px";      
+      imgContainer.style.height = "250px";
       tileContainer.insertBefore(imgContainer, tileContainer.children[1]);
       imgContainer.className = "pure-u-1 pure-u-md-1-2 pure-u-xl-1-3";
       imgContainer.style.padding = "10px";
       imgContainer.style.marginTop = "5px";
+      imgContainer.style.backgroundSize = "contain";
+      imgContainer.style.backgroundRepeat = "no-repeat";
   }
 }
 

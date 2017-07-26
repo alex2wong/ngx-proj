@@ -3,12 +3,13 @@
     height: 76px;
     border: 2px dotted #aaa;
     background-repeat: none;
-    background-position: center;
+    background-position-x: 0;
+    background-origin: content-box;
 }
 .upload-focus,
 #file2upload:hover,
 #file2upload:focus {    
-    background-color: #f592b3;
+    background-color: #f592b3;    
     /*border: 2px solid #aaa;*/
     transition: background-image, .4s;
 }

@@ -45,6 +45,8 @@ export class UploadComponent implements OnInit {
         this.fileContent = result;
         let inputEle: HTMLInputElement = <HTMLInputElement>document.querySelector('#file2upload');
         inputEle.style.backgroundImage = "url(" + reader.result + ")";
+        // inputEle.style.backgroundSize = "contain";
+        // inputEle.style.backgroundRepeat = "no-repeat";
         inputEle.style.opacity = "0.6";
         this.imageResult.emit(true);
       }

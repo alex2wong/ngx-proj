@@ -90,6 +90,18 @@ var AppComponent = (function () {
     AppComponent.prototype.toggleprofile = function () {
         //
     };
+    // receive reader.result from upload component.
+    AppComponent.prototype.previewImage = function (evt) {
+        var imgContainer = document.createElement("div"), imgSource = document.querySelector("#file2upload"), tileContainer = document.querySelector("#tileContainer");
+        imgContainer.style.backgroundImage = imgSource.style.backgroundImage;
+        imgContainer.style.height = "250px";
+        tileContainer.insertBefore(imgContainer, tileContainer.children[1]);
+        imgContainer.className = "pure-u-1 pure-u-md-1-2 pure-u-xl-1-3";
+        imgContainer.style.padding = "10px";
+        imgContainer.style.marginTop = "5px";
+        imgContainer.style.backgroundSize = "contain";
+        imgContainer.style.backgroundRepeat = "no-repeat";
+    };
     return AppComponent;
 }());
 AppComponent = __decorate([
@@ -114,7 +126,7 @@ var _a;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__ = __webpack_require__(34);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_http__ = __webpack_require__(45);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__angular_material__ = __webpack_require__(140);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app_component__ = __webpack_require__(143);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__largeList_largeList_component__ = __webpack_require__(145);
@@ -455,6 +467,9 @@ MapGLComponent = __decorate([
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(45);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_toPromise__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UploadComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -466,9 +481,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var UploadComponent = (function () {
-    function UploadComponent() {
+    function UploadComponent(http) {
+        // this Component only upload File(using form method). got response in __blank
         this.compressImg = true;
+        this.imageResult = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["D" /* EventEmitter */]();
+        this.http = http;
     }
     UploadComponent.prototype.ngOnInit = function () {
         this.fileloaded = {
@@ -476,32 +496,84 @@ var UploadComponent = (function () {
             type: "",
             size: "",
         };
+        this.actionURL = "http://111.231.11.20:8000/upload";
     };
     // upload img file..
     UploadComponent.prototype.upload = function (evt) {
+        var _this = this;
         console.warn("file Changed..");
         var $ele = evt.target;
-        if (($ele.files.length) > 0) {
+        if (($ele.files.length) > 0 && (/image\/\w+/.test($ele.files[0].type))) {
             this.fileloaded = $ele.files[0];
+            var reader_1 = new FileReader();
+            // reader as DataURL base64 imageSource.
+            reader_1.onload = function (result) {
+                _this.fileContent = result;
+                var inputEle = document.querySelector('#file2upload');
+                inputEle.style.backgroundImage = "url(" + reader_1.result + ")";
+                // inputEle.style.backgroundSize = "contain";
+                // inputEle.style.backgroundRepeat = "no-repeat";
+                inputEle.style.opacity = "0.6";
+                _this.imageResult.emit(true);
+            };
+            reader_1.readAsDataURL(this.fileloaded);
+        }
+        else {
+            alert("请选择图片文件");
+            this.fileloaded = {
+                name: "",
+                type: "",
+                size: "",
+            };
         }
     };
     // submit the img to server..
     UploadComponent.prototype.submit = function (evt) {
         // server path: http://111.231.11.20:3000/upload/
-        console.warn("uploading to http://111.231.11.20:3000/upload/ , compressed:" + this.compressImg);
-        // http.PUT()
+        console.warn("uploading to " + this.actionURL + " , compressed:" + this.compressImg);
+        if (!this.fileloaded.size)
+            return;
+        this.form = document.querySelector('#imageForm');
+        this.http.post(this.actionURL, this.constructForm()).toPromise()
+            .then(function (res) {
+            if (res._body) {
+                alert(res._body);
+                var _body = JSON.parse(res._body), objs = JSON.parse(_body.objs), objects = objs.objects;
+                objects.forEach(function (element) {
+                    // render rect on image..
+                });
+            }
+            evt.target.disabled = false;
+        });
+        evt.target.disabled = true;
+    };
+    UploadComponent.prototype.constructForm = function () {
+        var sendable = new FormData();
+        sendable.append('file2upload', this.fileloaded, this.fileloaded.name);
+        return sendable;
+    };
+    UploadComponent.prototype.checkResult = function () {
+        var targetFrame = top.frames['__blank'];
+        if (targetFrame.document.body.innerHTML) {
+            return targetFrame.document.body.innerHTML;
+        }
     };
     return UploadComponent;
 }());
+__decorate([
+    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Z" /* Output */])(),
+    __metadata("design:type", Object)
+], UploadComponent.prototype, "imageResult", void 0);
 UploadComponent = __decorate([
     __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__angular_core__["_1" /* Component */])({
         selector: 'app-upload',
         template: __webpack_require__(314),
         styles: [__webpack_require__(307)]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
 ], UploadComponent);
 
+var _a;
 //# sourceMappingURL=E:/WebProject/AngularGit/Angular-cli_Proj/ngx-proj/src/upload.component.js.map
 
 /***/ }),
@@ -557,7 +629,7 @@ var environment = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_core_js_es6_reflect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__ = __webpack_require__(165);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_core_js_es7_reflect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(365);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__ = __webpack_require__(367);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15_zone_js_dist_zone__);
 // This file includes polyfills needed by Angular 2 and is loaded before
 // the app. You can add your own extra polyfills to this file.
@@ -679,7 +751,7 @@ exports = module.exports = __webpack_require__(27)();
 
 
 // module
-exports.push([module.i, "#file2upload {\r\n    /*width: 40px;*/\r\n    height: 60px;\r\n    border: 2px dotted #aaa;\r\n}\r\n", ""]);
+exports.push([module.i, "#file2upload {\r\n    /*width: 40px;*/\r\n    height: 76px;\r\n    border: 2px dotted #aaa;\r\n    background-repeat: none;\r\n    background-position-x: 0;\r\n    background-origin: content-box;\r\n}\r\n.upload-focus,\r\n#file2upload:hover,\r\n#file2upload:focus {    \r\n    background-color: #f592b3;    \r\n    /*border: 2px solid #aaa;*/\r\n    transition: background-image, .4s;\r\n}", ""]);
 
 // exports
 
@@ -692,7 +764,7 @@ module.exports = module.exports.toString();
 /***/ 309:
 /***/ (function(module, exports) {
 
-module.exports = "<md-sidenav-container >\r\n\r\n<!--<nav md-tab-nav-bar>\r\n  <a md-tab-link (click)=\"sidenav.open()\"> TabLink's Label    \r\n  </a>\r\n  <a md-tab-link> Tab2   \r\n  </a>\r\n  <a md-tab-link> Tab3\r\n  </a>\r\n</nav>-->\r\n<button md-icon-button (click)=\"sidenav.open()\" class=\"topLeft\">\r\n  <md-icon>more_vert</md-icon>\r\n</button>\r\n<md-tab-group>\r\n   <md-tab color=\"accent\" label=\"LAYOUT\" >\r\n     <div class=\"pure-g\" style=\"margin: 0,auto;height: 100%;overflow-y: hidden;\">\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> Upload Image </h3>\r\n        <app-upload></app-upload>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile A </h3>\r\n        <p>自适应布局是个老话题，但笔者平时接触不多，这次准备了解并且实践下。简单查阅了下资料，基本上主流的方式是基于\r\n[媒体查询创建响应式网站]</p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile B </h3>\r\n        <p>这其中也会涉及到Flex 等具体的css属性，来辅助伸缩布局。但媒体查询是区别不同设备屏幕的基础，Flex并没有这个功能。          \r\n        </p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile C </h3>\r\n        <p>媒体查询其实比较简单，许多前端UI库已经内置了设定好的媒体查询，并且大多以这种形式出现</p>\r\n      </div>\r\n     </div>\r\n  </md-tab>\r\n  <md-tab label=\"COMPONENTS\">\r\n    <md-spinner *ngIf=\"!bigImages\"></md-spinner> \r\n    <md-card *ngFor=\"let img of bigImages | async\">\r\n      <md-card-title-group>\r\n        <md-card-title>每日一图</md-card-title>\r\n        <md-card-subtitle>Photo</md-card-subtitle>\r\n        <img md-card-avatar src=\"./assets/RealShadow_flight.png\">\r\n      </md-card-title-group>\r\n      <!--*ngFor=\"let img of bigImages | async\" -->\r\n      <img md-card-image src={{bingPrefix}}{{img.url}}>\r\n      <md-card-content>{{img.copyright}}</md-card-content>\r\n      <md-card-actions>\r\n        <md-checkbox (change)=\"toggleprofile()\"> Display profile </md-checkbox>\r\n        <button md-button color=\"warn\">Click me!</button>\r\n      </md-card-actions>\r\n      \r\n    </md-card>\r\n  </md-tab>\r\n  <md-tab label=\"SELECT DEMO\">\r\n    <!--<md-grid-list cols=\"1\" rowHeight=\"2:1\">-->\r\n      <md-card>\r\n        <md-card-title>Large Select</md-card-title>\r\n        <md-card-content>\r\n          <large-list [options]=\"addrObjs\" [title]=\"title\"></large-list>\r\n        </md-card-content>\r\n      </md-card>  \r\n      <md-card>\r\n        <md-card-title>Description</md-card-title>\r\n        <md-card-content>\r\n          There are over 20000 options in the large select, <br>\r\n          which apply pagenation to promote performance. <br><br>\r\n          Actually, chrome render select options before we select, <br>\r\n          but firefox render the select after we click select. <br>\r\n          This larget list component is meant to pollyfill the diff.\r\n        </md-card-content>\r\n      </md-card>\r\n  </md-tab> \r\n</md-tab-group>\r\n\r\n  <md-sidenav #sidenav class=\"example-sidenav\">\r\n    <app-layout></app-layout>\r\n  </md-sidenav>\r\n\r\n<!-- \r\n  While <md-tab-group> is used to switch between views within a single route,\r\n<nav md-tab-nav-bar> provides a tab-like UI for navigating between routes\r\n -->\r\n\r\n\r\n  <!--<md-grid-tile>\r\n    <app-map-gl></app-map-gl>\r\n  </md-grid-tile>-->\r\n\r\n</md-sidenav-container>\r\n"
+module.exports = "<md-sidenav-container >\r\n\r\n<!--<nav md-tab-nav-bar>\r\n  <a md-tab-link (click)=\"sidenav.open()\"> TabLink's Label    \r\n  </a>\r\n  <a md-tab-link> Tab2   \r\n  </a>\r\n  <a md-tab-link> Tab3\r\n  </a>\r\n</nav>-->\r\n<button md-icon-button (click)=\"sidenav.open()\" class=\"topLeft\">\r\n  <md-icon>more_vert</md-icon>\r\n</button>\r\n<md-tab-group>\r\n   <md-tab color=\"accent\" label=\"LAYOUT\" >\r\n     <div id=\"tileContainer\" class=\"pure-g\" style=\"margin: 0,auto;height: 100%;overflow-y: hidden;\">\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> 上传文件，体验图像分类 </h3>\r\n        <app-upload (imageResult)=\"previewImage($event)\"></app-upload>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile A </h3>\r\n        <p>自适应布局是个老话题，但笔者平时接触不多，这次准备了解并且实践下。简单查阅了下资料，基本上主流的方式是基于\r\n[媒体查询创建响应式网站]</p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile B </h3>\r\n        <p>这其中也会涉及到Flex 等具体的css属性，来辅助伸缩布局。但媒体查询是区别不同设备屏幕的基础，Flex并没有这个功能。          \r\n        </p>\r\n      </div>\r\n      <div class=\"pure-u-1 pure-u-md-1-2 pure-u-xl-1-3 tile\">\r\n        <h3> This is tile C </h3>\r\n        <p>媒体查询其实比较简单，许多前端UI库已经内置了设定好的媒体查询，并且大多以这种形式出现</p>\r\n      </div>\r\n     </div>\r\n  </md-tab>\r\n  <md-tab label=\"COMPONENTS\">\r\n    <md-spinner *ngIf=\"!bigImages\"></md-spinner> \r\n    <md-card *ngFor=\"let img of bigImages | async\">\r\n      <md-card-title-group>\r\n        <md-card-title>每日一图</md-card-title>\r\n        <md-card-subtitle>Photo</md-card-subtitle>\r\n        <img md-card-avatar src=\"./assets/RealShadow_flight.png\">\r\n      </md-card-title-group>\r\n      <!--*ngFor=\"let img of bigImages | async\" -->\r\n      <img md-card-image src={{bingPrefix}}{{img.url}}>\r\n      <md-card-content>{{img.copyright}}</md-card-content>\r\n      <md-card-actions>\r\n        <md-checkbox (change)=\"toggleprofile()\"> Display profile </md-checkbox>\r\n        <button md-button color=\"warn\">Click me!</button>\r\n      </md-card-actions>\r\n      \r\n    </md-card>\r\n  </md-tab>\r\n  <md-tab label=\"SELECT DEMO\">\r\n    <!--<md-grid-list cols=\"1\" rowHeight=\"2:1\">-->\r\n      <md-card>\r\n        <md-card-title>Large Select</md-card-title>\r\n        <md-card-content>\r\n          <large-list [options]=\"addrObjs\" [title]=\"title\"></large-list>\r\n        </md-card-content>\r\n      </md-card>  \r\n      <md-card>\r\n        <md-card-title>Description</md-card-title>\r\n        <md-card-content>\r\n          There are over 20000 options in the large select, <br>\r\n          which apply pagenation to promote performance. <br><br>\r\n          Actually, chrome render select options before we select, <br>\r\n          but firefox render the select after we click select. <br>\r\n          This larget list component is meant to pollyfill the diff.\r\n        </md-card-content>\r\n      </md-card>\r\n  </md-tab> \r\n</md-tab-group>\r\n\r\n  <md-sidenav #sidenav class=\"example-sidenav\">\r\n    <app-layout></app-layout>\r\n  </md-sidenav>\r\n\r\n<!-- \r\n  While <md-tab-group> is used to switch between views within a single route,\r\n<nav md-tab-nav-bar> provides a tab-like UI for navigating between routes\r\n -->\r\n\r\n\r\n  <!--<md-grid-tile>\r\n    <app-map-gl></app-map-gl>\r\n  </md-grid-tile>-->\r\n\r\n</md-sidenav-container>\r\n"
 
 /***/ }),
 
@@ -727,11 +799,11 @@ module.exports = "<div id=\"map\"></div>"
 /***/ 314:
 /***/ (function(module, exports) {
 
-module.exports = "<div>\n  <input type=\"file\" name=\"file2upload\" id=\"file2upload\" (change)=\"upload($event)\"  value=\"选择文件\">\n  <p>名称 {{fileloaded.name}}</p>\n  <p>类型 {{fileloaded.type}},  大小 {{fileloaded.size}} bytes</p>\n  <md-checkbox [(ngModel)]=\"compressImg\"> Compress Image </md-checkbox> &nbsp;\n  <button md-raised-button color=\"accent\" (click)=\"submit($event)\"> Object Detect </button>\n</div>\n"
+module.exports = "<form id=\"imageForm\" enctype=\"multipart/form-data\" target=\"__blank\" [action]=\"actionURL\" method=\"POST\">\n  <input type=\"file\" name=\"file2upload\" id=\"file2upload\" (change)=\"upload($event)\"  value=\"选择文件\">\n  <p>名称 {{fileloaded.name}}</p>\n  <p>类型 {{fileloaded.type}},  大小 {{fileloaded.size}} bytes</p>\n  <md-checkbox [(ngModel)]=\"compressImg\" name=\"compressImg\"> Compress Image </md-checkbox> &nbsp;\n  <button md-raised-button color=\"accent\" (click)=\"submit($event)\"> Object Detect </button>\n</form>\n<iframe name=\"__blank\" style=\"display: none;\"></iframe>\n"
 
 /***/ }),
 
-/***/ 366:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(136);
@@ -744,7 +816,7 @@ module.exports = __webpack_require__(136);
 
 "use strict";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(45);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return GetbingComponent; });
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -765,7 +837,7 @@ var GetbingComponent = (function () {
     };
     GetbingComponent.prototype.getBingImage = function () {
         // return Observable. map is one of operator..
-        return this.http.get("http://111.231.11.20:3002/proxy?proxyURI=http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
+        return this.http.get("https://111.231.11.20:3003/proxy?proxyURI=http://www.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1")
             .map(function (r) {
             return r.json().images;
         });
@@ -787,5 +859,5 @@ var _a;
 
 /***/ })
 
-},[366]);
+},[368]);
 //# sourceMappingURL=main.bundle.js.map
